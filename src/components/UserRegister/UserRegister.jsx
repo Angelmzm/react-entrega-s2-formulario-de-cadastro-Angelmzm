@@ -1,15 +1,15 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import logo from "../assets/logo.svg";
 import { Container, ContainerForm, Form } from "./style";
-import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+import { AuthContext } from "../context/UserContext/UserContext";
 
 const UserRegister = () => {
-  let navigate = useNavigate();
+  const { cadastro } = useContext(AuthContext);
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -35,20 +35,6 @@ const UserRegister = () => {
     resolver: yupResolver(formSchema),
   });
 
-  function cadrastro(data) {
-    console.log(data);
-    axios
-      .post("https://kenziehub.herokuapp.com/users", data)
-      .then((response) => {
-        console.log(response.data);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Ops! Algo deu errado");
-      });
-  }
-
   return (
     <Container>
       <div className="header">
@@ -62,7 +48,7 @@ const UserRegister = () => {
           <p className="descricaoCadastro"> Rapido e grátis, vamos nessa</p>
         </div>
 
-        <Form onSubmit={handleSubmit(cadrastro)} className="formCadastro">
+        <Form onSubmit={handleSubmit(cadastro)} className="formCadastro">
           <p> Nome</p>
           <input placeholder="Digite aqui seu nome" {...register("name")} />
           {errors.name?.message}
@@ -95,7 +81,7 @@ const UserRegister = () => {
           <input placeholder="Opção de contato" {...register("contact")} />
           {errors.contact?.message}
 
-          <p> Selecior módulo</p>
+          <p> Selecionar módulo</p>
           <select {...register("course_module")}>
             <option value="Primeiro módulo (Introdução ao Frontend)">
               {" "}

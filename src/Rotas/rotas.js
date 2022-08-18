@@ -7,8 +7,7 @@ import MainScreen from "../components/MainScreen/MainScreen";
 const Rotas = ({user, setUser}) => {
   return (
     <Routes>
-      <Route path="/" element={<Login 
-        user={user} setUser={setUser}/>} />  
+      <Route path="/" element={<Login user={user} setUser={setUser}/>} />  
       <Route path="/cadastro" element={<UserRegister />}/>
       <Route path="/main" element={<MainScreen  user={user} setUser={setUser} />} />
     </Routes>

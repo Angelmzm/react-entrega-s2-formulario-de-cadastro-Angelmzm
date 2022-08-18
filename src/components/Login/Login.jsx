@@ -1,14 +1,16 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import logo from "../assets/logo.svg";
 import { ContainerLogin, ContainerForm, Form } from "./style";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+import { AuthContext } from "../context/UserContext/UserContext";
 
-const Login = ({ user, setUser }) => {
+const Login = () => {
+  const { login } = useContext(AuthContext);
   let navigate = useNavigate();
 
   function navCadastro() {
@@ -28,23 +30,6 @@ const Login = ({ user, setUser }) => {
     resolver: yupResolver(formSchema),
   });
 
-  function cadastro(data) {
-    axios
-      .post("https://kenziehub.herokuapp.com/sessions", data)
-      .then((response) => {
-        console.log(response.data);
-        window.localStorage.clear();
-        window.localStorage.setItem("token", response.data.token);
-        window.localStorage.setItem("userId", response.data.user.id);
-        setUser(response.data.user);
-        navigate("/main");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("E-mail ou senha incorretos");
-      });
-  }
-
   return (
     <ContainerLogin className="containerLogin">
       <div className="headerLogin">
@@ -54,7 +39,7 @@ const Login = ({ user, setUser }) => {
       <ContainerForm className="containerForm">
         <h1> Login </h1>
 
-        <Form className="formLogin" onSubmit={handleSubmit(cadastro)}>
+        <Form className="formLogin" onSubmit={handleSubmit(login)}>
           <p> Email </p>
           <input placeholder="Digite aqui seu email" {...register("email")} />
           {errors.email?.message}

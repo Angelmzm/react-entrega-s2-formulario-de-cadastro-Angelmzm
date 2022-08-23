@@ -4,21 +4,23 @@ import logo from "../assets/logo.svg";
 import { Header } from "./style";
 import { Description } from "./style";
 import { Main } from "./style";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../context/UserContext/UserContext";
-import { TechContext } from "../context/TechContext/TechContext";
+import { AuthContext } from "../../context/UserContext/UserContext";
+import { TechContext } from "../../context/TechContext/TechContext";
 import { ToastContainer } from "react-toastify";
-
 import ModalTech from "../../modals/ModalTech";
 
+
+
+
 const MainScreen = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { openModal } = useContext(TechContext);
+  
   let navigate = useNavigate();
 
   function nav() {
-    setUser([]);
     window.localStorage.clear();
     navigate("/");
   }
@@ -46,7 +48,7 @@ const MainScreen = () => {
         </div>
 
         <Tecnologias />
-        <ModalTech> </ModalTech>
+        <ModalTech/>
       </Main>
       <ToastContainer
         position="top-right"

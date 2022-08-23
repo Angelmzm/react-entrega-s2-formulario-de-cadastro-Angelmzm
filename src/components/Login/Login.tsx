@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import { AuthContext } from "../context/UserContext/UserContext";
+import { AuthContext } from "../../context/UserContext/UserContext";
+import { ILogin } from "../../context/UserContext/UserContext";
+
+
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -22,13 +25,7 @@ const Login = () => {
     password: yup.string().required("Senha obrigatório"),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(formSchema),
-  });
+  const {register,handleSubmit, formState: { errors },} = useForm<ILogin>({ resolver: yupResolver(formSchema), });
 
   return (
     <ContainerLogin className="containerLogin">

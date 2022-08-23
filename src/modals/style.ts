@@ -19,6 +19,7 @@ export const ModalContainer = styled.div`
     color: #f8f9fa;
     font-size: 14px;
     margin-bottom: 20px;
+    cursor: pointer;
    
   }
  
@@ -76,6 +77,7 @@ export const ModalForm = styled.form`
     margin: 15px 10px 5px 15px;
     border-radius: 5px;
     border: 1px solid #f8f9fa;
+    cursor: pointer;
   }
   input::placeholder{
    color: #f8f9fa;

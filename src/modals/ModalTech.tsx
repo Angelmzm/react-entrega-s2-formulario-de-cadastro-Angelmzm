@@ -3,12 +3,15 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
-import { TechContext } from "../components/context/TechContext/TechContext";
+import { TechContext } from "../context/TechContext/TechContext";
 import { ToastContainer } from "react-toastify";
 import { ModalHeader } from "./style";
 import { ModalContainer } from "./style";
 import { ModalForm } from "./style";
 import "../modals/style.css";
+import  {IList } from "../context/UserContext/UserContext";
+
+
 
 const ModalTech = () => {
   const { tech, modalIsOpen, closeModal } = useContext(TechContext);
@@ -18,13 +21,7 @@ const ModalTech = () => {
     status: yup.string().required("Status obrigatório"),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(formSchema),
-  });
+  const {register, handleSubmit, formState: { errors },} = useForm <IList>({resolver: yupResolver(formSchema), });
 
   return (
     <>
@@ -43,15 +40,16 @@ const ModalTech = () => {
 
               <p> Selecionar status </p>
               <select {...register("status")}>
+
                 <option value="Iniciante">Iniciante</option>
                 <option value="Intermediário">Intermediário</option>
                 <option value="Avançado">Avançado</option>
+                
               </select>
               {errors.status?.message}
             </div>
             <button type="submit" className="btnCadastroTech">
-              {" "}
-              Cadastrar Tecnologia{" "}
+              Cadastrar Tecnologia
             </button>
           </ModalForm>
         </ModalContainer>

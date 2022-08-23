@@ -62,6 +62,7 @@ export const Main = styled.main`
       border: none;
       border-radius: 2px;
       margin: 10px 8px 10px 8px ;
+      cursor: pointer;
     }
   }
 
@@ -134,6 +135,7 @@ export const Main = styled.main`
       background-color: #121214;
       margin: 8px 0px 8px 8px;
       border: none;
+      cursor: pointer;
     }
   }
   }
@@ -187,5 +189,5 @@ export const Main = styled.main`
       width: 50%;
     }
   }
-
+  }
 `;

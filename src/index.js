@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import AuthProvider from "./components/context/UserContext/UserContext";
-import TechProvider from "./components/context/TechContext/TechContext";
+import AuthProvider from "./context/UserContext/UserContext";
+import TechProvider from "./context/TechContext/TechContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

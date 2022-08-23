@@ -1,19 +1,34 @@
 
-import api from "../../../services/api";
+import api from "../../services/api";
 import { toast } from "react-toastify";
-import { AuthContext } from "../UserContext/UserContext";
-import { useEffect, useState } from "react";
+import { AuthContext, IList } from "../UserContext/UserContext";
+import { ReactNode, useEffect, useState } from "react";
 import { createContext } from "react";
 import { useContext } from "react";
 
 
-export const TechContext = createContext();
+interface ITechProviderProps {
+  children: ReactNode
+}
 
-const TechProvider = ({children}) => {
+ interface ITechContext {
+  tech: (data: IList) => Promise<void>
+  techDelete: (id: string) => void
+  modalIsOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  openModal: () => void
+  closeModal: () => void
+  techs: IList[]
+}
+
+
+export const TechContext = createContext<ITechContext>({} as ITechContext);
+
+const TechProvider = ({children} : ITechProviderProps) => {
 
     const { list} = useContext(AuthContext);
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [techs, setTechs] = useState(list)
+    const [techs, setTechs] = useState<IList[]>(list)
 
     const userId= localStorage.getItem("userId")
 
@@ -30,7 +45,7 @@ const TechProvider = ({children}) => {
       
     }, [list]) 
     
-  async function tech(data) {
+  async function tech(data: IList) : Promise<void> {
     api
       .post("/users/techs", data)
       .then( async (response) => {
@@ -44,7 +59,7 @@ const TechProvider = ({children}) => {
         toast.error("Tecnologia já cadastrada");
       });
   }
-      function techDelete(id) {
+      function techDelete(id: string) {
         
         api
           .delete(`/users/techs/${id}`)

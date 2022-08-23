@@ -4,12 +4,12 @@ import UserRegister from "../components/UserRegister/UserRegister";
 import Login from "../components/Login/Login";
 import MainScreen from "../components/MainScreen/MainScreen";
 
-const Rotas = ({user, setUser}) => {
+const Rotas = () => {
   return (
     <Routes>
-      <Route path="/" element={<Login user={user} setUser={setUser}/>} />  
+      <Route path="/" element={<Login/>} />  
       <Route path="/cadastro" element={<UserRegister />}/>
-      <Route path="/main" element={<MainScreen  user={user} setUser={setUser} />} />
+      <Route path="/main" element={<MainScreen />} />
     </Routes>
   );
 };

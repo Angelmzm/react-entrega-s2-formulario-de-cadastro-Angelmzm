@@ -1,14 +1,17 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import logo from "../assets/logo.svg";
 import { Container, ContainerForm, Form } from "./style";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import { AuthContext } from "../context/UserContext/UserContext";
+import { AuthContext } from "../../context/UserContext/UserContext";
+import  { ICadastro }  from "../../context/UserContext/UserContext";
+import logo from "../assets/logo.svg"
+
 
 const UserRegister = () => {
+
   const { cadastro } = useContext(AuthContext);
 
   const formSchema = yup.object().shape({
@@ -27,13 +30,7 @@ const UserRegister = () => {
     course_module: yup.string().required("Módulo obrigatório"),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(formSchema),
-  });
+  const {register, handleSubmit, formState: { errors }, } = useForm<ICadastro>({ resolver: yupResolver(formSchema),});
 
   return (
     <Container>
